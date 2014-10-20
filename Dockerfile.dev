@@ -1,0 +1,17 @@
+FROM jnijni/elixir-docker
+
+# Don't copy website, use volumes instead, i.e. docker run -v /home/you/website:/src image
+#USER root
+#ADD . /src
+#RUN rm -rf /src/_build /src/dpes && chown -R docker /src
+#USER docker
+
+# Fix mix to stop it from re-downloading hex and rebar
+ADD mix_base /.mix
+
+# Start website
+EXPOSE 8080
+ENV PORT 8080
+ENV MIX_ENV dev
+WORKDIR /src
+CMD yes | mix do clean, deps.get && mix phoenix.start
