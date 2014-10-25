@@ -40,7 +40,7 @@ if [[ "$TEST_MODE" = 'quick' ]]; then
     MIX_ENV=test mix do deps.get, compile
   fi
 
-  MIX_ENV=test mix test
+  MIX_ENV=test mix test --cover
 else
   mkdir -p "$DIR/_test/src"
   $RSYNC "$DIR/" "$DIR/_test/src/"

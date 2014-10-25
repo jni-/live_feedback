@@ -7,6 +7,7 @@ defmodule LiveFeedback.Mixfile do
      elixir: "~> 1.0",
      elixirc_paths: ["lib", "web"],
      compilers: [:phoenix] ++ Mix.compilers,
+     test_coverage: [tool: Coverex.Task],
      deps: deps]
   end
 
@@ -23,6 +24,7 @@ defmodule LiveFeedback.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [{:phoenix, github: "phoenixframework/phoenix"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:coverex, ">= 0.0.0", only: :test}]
   end
 end
