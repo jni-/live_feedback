@@ -25,6 +25,7 @@ defmodule LiveFeedback.Mixfile do
   defp deps do
     [{:phoenix, github: "phoenixframework/phoenix"},
      {:cowboy, "~> 1.0"},
+     {:phoenix_haml, github: "chrismccord/phoenix_haml"},
      {:coverex, ">= 0.0.0", only: :test}]
   end
 end

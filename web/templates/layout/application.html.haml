@@ -1,0 +1,25 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    %meta(name="viewport", content="width=device-width, initial-scale=1")
+
+    %title Live Feedback
+
+    %link(rel="stylesheet", href="/css/phoenix.css")
+
+  %body
+
+    .container
+      .header
+        %ul.nav.nav-pills.pull-right
+          %li
+            %a(href="http://google.com") Get started!
+        %span.logo
+
+      = @inner
+
+      .footer
+        %p
+          %a(href="http://google.com") phoenix

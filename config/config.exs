@@ -14,6 +14,9 @@ config :phoenix, LiveFeedback.Router,
   debug_errors: false,
   error_controller: LiveFeedback.PageController
 
+config :phoenix, :template_engines,
+  haml: PhoenixHaml.Engine
+
 # Session configuration
 config :phoenix, LiveFeedback.Router,
   session: [store: :cookie,
