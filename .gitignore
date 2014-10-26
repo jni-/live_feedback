@@ -3,5 +3,5 @@
 erl_crash.dump
 *.ez
 /_test
-Dockerfile
+/Dockerfile
 /cover
