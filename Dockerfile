@@ -11,4 +11,5 @@ EXPOSE 8080
 ENV PORT 8080
 ENV MIX_ENV prod
 WORKDIR /src
-CMD yes | mix do clean, deps.get && mix phoenix.start
+RUN yes | mix do deps.get, compile
+CMD mix phoenix.start
