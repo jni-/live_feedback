@@ -1,7 +1,7 @@
-/_build
-/deps
+/src/_build
+/src/deps
 erl_crash.dump
 *.ez
-/_test
-/Dockerfile
-/cover
+/src/_test
+/src/Dockerfile
+/src/cover

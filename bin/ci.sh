@@ -26,7 +26,8 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
   SOURCE="$(readlink "$SOURCE")"
   [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+DIR_SELF="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+DIR="$DIR_SELF/../src"
 
 FAILING=false
 command -v notify-send > /dev/null && NOTIFY='notify-send -a LiveFeedback -t 2000 -u' || NOTIFY='echo'
@@ -36,7 +37,7 @@ inotifywait -mr --timefmt '%d/%m/%y %H:%M' --format '%T %w %f' --exclude '.*\.sw
   echo "At ${time} on ${date}, file $FILECHANGE"
 
 
-  /bin/bash $DIR/test.sh quick
+  /bin/bash $DIR_SELF/test.sh quick
   if [[ "$?" -ne "0" ]]; then
     FAILING=true
     $NOTIFY "critical" "Test Failure" 'You broke something again!!'

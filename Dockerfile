@@ -1,10 +1,10 @@
 FROM jnijni/elixir-docker
 
 # Copy website
-ADD . /src
+ADD src /src
 
 # Fix mix to stop it from re-downloading hex and rebar
-ADD mix_base /.mix
+ADD src/mix_base /.mix
 
 # Start website
 EXPOSE 8080
