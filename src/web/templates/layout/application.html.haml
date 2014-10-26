@@ -7,19 +7,22 @@
 
     %title Live Feedback
 
-    %link(rel="stylesheet", href="/css/phoenix.css")
+    %link(rel="stylesheet", href="/css/live-feedback.css")
+    %link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    %link(rel="favicon", href="/favicon.ico?v=1")
 
   %body
 
     .container
       .header
-        %ul.nav.nav-pills.pull-right
-          %li
-            %a(href="http://google.com") Get started!
-        %span.logo
+        %h1 Live Feedback
 
       = @inner
 
       .footer
         %p
-          %a(href="http://google.com") phoenix
+          You are running version&nbsp;
+          %em= version_id
+
+    %script(src="//code.jquery.com/jquery-2.1.1.min.js")
+    %script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
