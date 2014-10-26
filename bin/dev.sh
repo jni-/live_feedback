@@ -30,4 +30,4 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )/../src"
 
 cp "$DIR/Dockerfile.dev" "$DIR/Dockerfile"
 docker build -t live_feedback_dev "$DIR"
-docker run -v ${DIR}:/src -p 8080:8080 live_feedback
+docker run -v ${DIR}:/src -p 8080:8080 live_feedback_dev
