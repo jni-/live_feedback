@@ -1,7 +1,7 @@
 FROM jnijni/elixir-docker
 
 # Copy website
-ADD src /src
+ADD . /src
 
 # Fix mix to stop it from re-downloading hex and rebar
 ADD mix_base /.mix
