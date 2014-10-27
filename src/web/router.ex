@@ -6,6 +6,7 @@ defmodule LiveFeedback.Router do
     pipe_through :browser
 
     get "/", LiveFeedback.PageController, :index, as: :pages
+    get "/comment", LiveFeedback.PageController, :comment, as: :pages
   end
 
   # Other scopes may use custom stacks.

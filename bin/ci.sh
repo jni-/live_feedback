@@ -36,8 +36,8 @@ inotifywait -mr --timefmt '%d/%m/%y %H:%M' --format '%T %w %f' --exclude '.*\.sw
   FILECHANGE=${dir}${file}
   echo "At ${time} on ${date}, file $FILECHANGE"
 
-
-  /bin/bash $DIR_SELF/test.sh quick
+  # Remove annoying error that makes no sense from coverex
+  /bin/bash $DIR_SELF/test.sh quick | grep -v "mod_entry is nil"
   if [[ "$?" -ne "0" ]]; then
     FAILING=true
     $NOTIFY "critical" "Test Failure" 'You broke something again!!'
