@@ -7,6 +7,7 @@ defmodule LiveFeedback.Router do
 
     get "/", LiveFeedback.PageController, :index, as: :pages
     get "/comment", LiveFeedback.PageController, :comment, as: :pages
+    post "/register-emotion", LiveFeedback.PageController, :register_emotion, as: :pages
   end
 
   # Other scopes may use custom stacks.
