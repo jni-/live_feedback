@@ -1,19 +1,19 @@
 #!/bin/bash - 
 #===============================================================================
 #
-#          FILE:  start.sh
-#
-#         USAGE:  ./start.sh
-#
-#   DESCRIPTION:  Starts a development docker. Uses port 8080
-#
+#          FILE:  publish.sh
+# 
+#         USAGE:  ./publish.sh 
+# 
+#   DESCRIPTION:  G
+# 
 #       OPTIONS:  ---
-#  REQUIREMENTS:  A docker image name live_feedback. Use "docker built -t live_feedback ." after copying the proper Dockerfile.* to Dockerfile
+#  REQUIREMENTS:  ---
 #          BUGS:  ---
 #         NOTES:  ---
-#        AUTHOR: Jni
-#       COMPANY:
-#       CREATED: 19/10/14 03:55:28 PM EDT
+#        AUTHOR: YOUR NAME (), 
+#       COMPANY: 
+#       CREATED: 28/10/14 08:57:43 PM EDT
 #      REVISION:  ---
 #===============================================================================
 
@@ -28,6 +28,5 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )/../src"
 
-cp "$DIR/Dockerfile.dev" "$DIR/Dockerfile"
-docker build -t live_feedback_dev "$DIR"
-docker run -v ${DIR}:/src -p 8080:8080 -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DYNAMO_DB_PREFIX="dev_" -e DEPLOYMENT_KEY="default-dev-key" -t live_feedback_dev
+docker build -t jnijni/live-feedback --no-cache "$DIR/.."
+docker push jnijni/live-feedback

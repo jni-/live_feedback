@@ -9,7 +9,7 @@ ADD src/mix_base /.mix
 # Start website
 EXPOSE 8080
 ENV PORT 8080
-ENV MIX_ENV dev
+ENV MIX_ENV prod
 WORKDIR /src
 RUN yes | mix do clean, deps.get, compile
 CMD mix phoenix.start

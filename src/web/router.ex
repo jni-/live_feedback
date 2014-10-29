@@ -1,17 +1,16 @@
 defmodule LiveFeedback.Router do
   use Phoenix.Router
+  use Phoenix.Router.Socket, mount: "/ws"
+
+  channel "generic", LiveFeedback.Generic
 
   scope "/" do
-    # Use the default browser stack.
     pipe_through :browser
 
     get "/", LiveFeedback.PageController, :index, as: :pages
-    get "/comment", LiveFeedback.PageController, :comment, as: :pages
+    get "/signal-reload", LiveFeedback.PageController, :signal_reload, as: :pages
+    get "/version", LiveFeedback.PageController, :version, as: :pages
     post "/register-emotion", LiveFeedback.PageController, :register_emotion, as: :pages
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api" do
-  #   pipe_through :api
-  # end
 end
