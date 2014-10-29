@@ -28,7 +28,8 @@ defmodule LiveFeedback.Mixfile do
      {:phoenix_haml, github: "chrismccord/phoenix_haml"},
      {:ddbmodel, github: "jni-/ddbmodel"},
      {:jsx, github: "talentdeficit/jsx", override: true},
-     {:meck, github: "eproxus/meck", override: true},
+     {:meck, "0.8.2", only: :test, override: true},
+     {:mock, github: "jjh42/mock", only: :test},
      {:coverex, ">= 0.0.0", only: :test}]
   end
 end

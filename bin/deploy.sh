@@ -72,6 +72,7 @@ ssh -tt $SERVER <<\DEPLOY | tail -n +11
 
   echo -e "\e[0;34mSending current server a reload notice with key $DEPLOYMENT_KEY.\e[0m"
   curl -Is localhost/signal-reload?key=$DEPLOYMENT_KEY > /dev/null
+  sleep 2
 
   echo -e "\e[0;34mUpdating configuration to use container $CONTAINER_ID on port $NEXT_PORT\e[0m"
   $SED -i /"server\s*${SERVER_PREFIX}"/d $HAPROXY_CONF
