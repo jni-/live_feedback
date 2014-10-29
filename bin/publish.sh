@@ -61,3 +61,4 @@ fi
 docker build -t jnijni/live-feedback:$TAG --no-cache "$DIR/.."
 docker push jnijni/live-feedback:$TAG
 git tag $TAG
+git push origin $TAG
