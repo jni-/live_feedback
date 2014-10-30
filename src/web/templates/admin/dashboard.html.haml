@@ -1,2 +1,23 @@
 %h2
   Live Feedback Dashboard
+
+#conferences.panel-group(role="tablist", aria-multiselectable="false")
+
+- for {Conference, conference} <- @conferences do
+  .panel.panel-default
+    .panel-heading(role="tab")
+      %h4.panel-title(id="heading-#{conference[:slug]}")
+        %a.collapsed(data-toggle="collapse",data-parent="#conferences",href="##{conference[:slug]}",aria-controls="#{conference[:slug]}",aria-expanded="false")
+          = conference[:name]
+
+    .panel-collapse.collapse(role="tabpanel",aria-labelledby="heading-#{conference[:slug]}",id="#{conference[:slug]}")
+      .panel-body
+        .checkbox
+          %label.toggle(for="enable-#{conference[:slug]}")
+            %input(type="checkbox", id="enable-#{conference[:slug]}", data-enabled="#{conference[:enabled]}")
+            Activer
+
+          %hr
+
+
+%script(src="/js/dashboard.js")

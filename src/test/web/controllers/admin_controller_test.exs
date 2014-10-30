@@ -53,9 +53,11 @@ defmodule LiveFeedback.AdminControllerTest do
   end
 
   test "Accessing the dashboard when logged in displays the dashboard" do
-    %{resp_body: body} = LiveFeedback.AdminController.dashboard(after_logging_in_as_admin(), nil)
+    with_mock Conference, [scan: fn() -> {:ok, 0, []}  end] do
+      conn = %{resp_body: body} = LiveFeedback.AdminController.dashboard(after_logging_in_as_admin(), nil)
 
-    assert body =~ "Live Feedback Dashboard"
+      assert body =~ "Live Feedback Dashboard"
+    end
   end
 
   defp after_logging_in_as_admin() do

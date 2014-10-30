@@ -5,7 +5,7 @@ defmodule LiveFeedback.PageControllerTest do
   alias Poison, as: JSON
   import Mock
 
-  @emotion_parameters %{value: 1, emotion: "nothing"}
+  @emotion_parameters %{value: 1, emotion: "nothing", conference: "elixir"}
   @deploy_key "12345"
 
   setup do
@@ -14,8 +14,18 @@ defmodule LiveFeedback.PageControllerTest do
   end
 
   test "Index renders the view" do
-    %{resp_body: body} = call(LiveFeedback.Router, :get, "/")
-    assert body =~ "You are running version"
+    with_mock Conference, [scan: fn() -> {:ok, 1, []} end] do
+      %{resp_body: body} = call(LiveFeedback.Router, :get, "/")
+      assert body =~ "You are running version"
+    end
+  end
+
+  test "Index lists enabled conferences" do
+    with_mock Conference, [scan: fn() -> {:ok, 1, [enabled_conference, disabled_conference]} end] do
+      %{resp_body: body} = call(LiveFeedback.Router, :get, "/")
+      assert body =~ "Enabled-conference"
+      refute body =~ "Disabled-conference"
+    end
   end
 
   test "Register emotion persists the emotion" do
@@ -91,7 +101,15 @@ defmodule LiveFeedback.PageControllerTest do
 
   defp emotion_for_current_user(conn) do
       user_id = Plug.Conn.get_session(conn, :user_id)
-      Emotion.new(hash: user_id <> @emotion_parameters[:emotion], emotion: @emotion_parameters[:emotion], value: @emotion_parameters[:value]).to_dynamo
+      Emotion.new(hash: user_id <> @emotion_parameters[:emotion] <> @emotion_parameters[:conference], emotion: @emotion_parameters[:emotion], value: @emotion_parameters[:value], conference_name: @emotion_parameters[:conference]).to_dynamo
+  end
+
+  defp enabled_conference do
+    {Conference, Enum.into([{:name, "Enabled-conference"}, {:enabled, 1}], HashDict.new)}
+  end
+
+  defp disabled_conference do
+    {Conference, Enum.into([{:name, "Disabled-conference"}, {:enabled, 0}], HashDict.new)}
   end
 
 end

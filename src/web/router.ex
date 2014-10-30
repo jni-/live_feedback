@@ -19,6 +19,7 @@ defmodule LiveFeedback.Router do
     get "/", LiveFeedback.AdminController, :index, as: :pages
     post "/login", LiveFeedback.AdminController, :login, as: :pages
     get "/dashboard", LiveFeedback.AdminController, :dashboard, as: :pages
+    get "/rankings", LiveFeedback.AdminController, :rankings, as: :pages
   end
 
 end

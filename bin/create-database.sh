@@ -14,3 +14,4 @@ CREATE_TABLE="$DYNAMO_DB create-table --provisioned-throughput ReadCapacityUnits
 TABLE_EXISTS="$DYNAMO_DB describe-table --table-name"
 
 $TABLE_EXISTS ${PREFIX}Emotion > /dev/null 2>&1 || $CREATE_TABLE ${PREFIX}Emotion --key-schema AttributeName=hash,KeyType=HASH --attribute-definitions AttributeName=hash,AttributeType=S
+$TABLE_EXISTS ${PREFIX}Conference > /dev/null 2>&1 || $CREATE_TABLE ${PREFIX}Conference --key-schema AttributeName=name,KeyType=HASH --attribute-definitions AttributeName=name,AttributeType=S

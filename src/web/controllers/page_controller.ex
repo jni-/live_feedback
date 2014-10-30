@@ -7,12 +7,15 @@ defmodule LiveFeedback.PageController do
   alias Poison, as: JSON
 
   def index(conn, _params) do
-    render conn, "index"
+    {:ok, _, conferences} = Conference.scan
+
+    render conn, "index",
+      conferences: conferences |> Enum.filter(fn({Conference, conference}) -> conference[:enabled] == 1 end)
   end
 
   def register_emotion(conn, params) do
     user_id = get_session(conn, :user_id)
-    case Emotion.new(hash: user_id <> params["emotion"], emotion: params["emotion"], value: params["value"]).put! do
+    case Emotion.new(hash: user_id <> params["emotion"] <> params["conference"], emotion: params["emotion"], value: params["value"], conference_name: params["conference"]).put! do
       {:ok, emotion} ->
         Phoenix.Channel.broadcast "generic", "global", "emotions-changed", %{}
         json conn, JSON.encode!(:ok)

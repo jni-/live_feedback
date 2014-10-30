@@ -1,12 +1,20 @@
-%div.jumbotron.sliders
-  %h2 How much are you enjoying this talk?
-  %div
-    %span Not much
-    %input#appreciation-slider
-    %span Quite a lot
+- for {Conference, conference} <- @conferences do
 
-  %h2 How much are you able to follow?
-  %div
-    %span I am lost
-    %input#lost-slider
-    %span I'm doing great
+  %div.jumbotron.sliders(id="#{conference[:slug]}")
+    %h2
+      = conference[:name]
+
+    %h3 Appréciez-vous cette présentation?
+    %div
+      %span 0
+      %input#appreciation-slider
+      %span 10
+
+    %h3 Est-ce facile de suivre la présentation?
+    %div
+      %span 0
+      %input#lost-slider
+      %span 10
+
+
+%script(src="/js/questions.js")

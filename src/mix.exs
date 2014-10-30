@@ -23,12 +23,12 @@ defmodule LiveFeedback.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, github: "phoenixframework/phoenix"},
+    [{:phoenix, github: "phoenixframework/phoenix", ref: "0cccab6ab1685c53d3053058f09c53ea1b60ce3f", override: true},
      {:cowboy, "~> 1.0"},
      {:phoenix_haml, github: "chrismccord/phoenix_haml"},
      {:ddbmodel, github: "jni-/ddbmodel"},
      {:jsx, github: "talentdeficit/jsx", override: true},
-     {:meck, "0.8.2", only: :test, override: true},
+     {:meck, "0.8.2", override: true},
      {:mock, github: "jjh42/mock", only: :test},
      {:coverex, ">= 0.0.0", only: :test}]
   end

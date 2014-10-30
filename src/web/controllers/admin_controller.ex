@@ -4,6 +4,8 @@ defmodule LiveFeedback.AdminController do
   plug :authenticate, :admin when action in [:dashboard]
   plug :action
 
+  alias Poison, as: JSON
+
   def index(conn, _params) do
     render conn, "index"
   end
@@ -20,8 +22,23 @@ defmodule LiveFeedback.AdminController do
   end
 
   def dashboard(conn, params) do
-    render conn, "dashboard"
+    {:ok, _, conferences} = Conference.scan
+
+    render conn, "dashboard",
+      conferences: conferences
   end
+
+  def rankings(conn, _params) do
+    {:ok, _, conferences} = Conference.scan
+    {:ok, _, emotions} = Emotion.scan
+
+    rankings = Enum.group_by(emotions, fn({Emotion, emotion}) -> {emotion[:emotion], emotion[:conference_name]} end)
+                |> Enum.map(fn({key, values}) -> {key, List.foldr(values, 0, fn({Emotion, dict}, acc) -> acc + String.to_integer(dict[:value]) end) / Enum.count(values)} end)
+                |> Enum.map(fn({{emotion, conference}, average}) -> %{emotion: emotion, conference: conference, average: average} end)
+
+    json conn, JSON.encode!(rankings)
+  end
+
 
   defp authenticate(conn, :admin) do
     if !get_session(conn, :is_admin) do

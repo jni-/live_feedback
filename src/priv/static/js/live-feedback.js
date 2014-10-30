@@ -1,18 +1,5 @@
 $(function() {
 
-  function registerEmotion(emotion) {
-    return function() {
-      console.log($(this));
-      var value = $(this).slider("getValue");
-      localStorage && localStorage.setItem(emotion, value);
-      $.post("register-emotion", {value: value, emotion: emotion});
-    };
-  }
-
-  function getDefaultEmotionValue(emotion) {
-    return localStorage && parseInt(localStorage.getItem(emotion)) || 5;
-  }
-
   function activateControls(activate) {
     $('input#appreciation-slider, input#lost-slider').slider(activate ? "enable" : "disable");
   }
@@ -24,16 +11,6 @@ $(function() {
       }
     });
   }
-
-  $('input#appreciation-slider').slider({
-    value: getDefaultEmotionValue("appreciation")
-  }).on("slideStop", registerEmotion("appreciation"));
-
-  $('input#lost-slider').slider({
-    value: getDefaultEmotionValue("lost")
-  }).on("slideStop", registerEmotion("lost"));
-
-
 
   var socket = new Phoenix.Socket("/ws");
   var socketWasDead = false;
