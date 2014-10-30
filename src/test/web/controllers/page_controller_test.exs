@@ -41,8 +41,6 @@ defmodule LiveFeedback.PageControllerTest do
   end
 
   test "Signal reload works with the proper key" do
-    Application.put_env(:live_feedback, :reloads, %{key: @deploy_key})
-
     Phoenix.Topic.subscribe self, "generic:global"
     call(LiveFeedback.Router, :get, "/signal-reload", [key: @deploy_key])
 
@@ -58,8 +56,6 @@ defmodule LiveFeedback.PageControllerTest do
   end
 
   test "Signal reload does not work with the wrong key" do
-    Application.put_env(:live_feedback, :reloads, %{key: @deploy_key})
-
     Phoenix.Topic.subscribe self, "generic:global"
     call(LiveFeedback.Router, :get, "/signal-reload", [key: String.reverse @deploy_key])
 
@@ -75,8 +71,6 @@ defmodule LiveFeedback.PageControllerTest do
   end
 
   test "Signal reload sends the current version in the message" do
-    Application.put_env(:live_feedback, :reloads, %{key: @deploy_key})
-
     Phoenix.Topic.subscribe self, "generic:global"
     call(LiveFeedback.Router, :get, "/signal-reload", [key: @deploy_key])
 
@@ -97,7 +91,7 @@ defmodule LiveFeedback.PageControllerTest do
 
   defp emotion_for_current_user(conn) do
       user_id = Plug.Conn.get_session(conn, :user_id)
-      expected_emotion = Emotion.new(hash: user_id <> @emotion_parameters[:emotion], emotion: @emotion_parameters[:emotion], value: @emotion_parameters[:value]).to_dynamo
+      Emotion.new(hash: user_id <> @emotion_parameters[:emotion], emotion: @emotion_parameters[:emotion], value: @emotion_parameters[:value]).to_dynamo
   end
 
 end

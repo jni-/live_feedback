@@ -13,4 +13,12 @@ defmodule LiveFeedback.Router do
     post "/register-emotion", LiveFeedback.PageController, :register_emotion, as: :pages
   end
 
+  scope "/admin" do
+    pipe_through :browser
+
+    get "/", LiveFeedback.AdminController, :index, as: :pages
+    post "/login", LiveFeedback.AdminController, :login, as: :pages
+    get "/dashboard", LiveFeedback.AdminController, :dashboard, as: :pages
+  end
+
 end

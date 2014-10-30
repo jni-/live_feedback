@@ -30,6 +30,9 @@ config :logger, :console,
 config :live_feedback, :reloads,
   key: System.get_env("DEPLOYMENT_KEY") || "default-dev-key"
 
+config :live_feedback, :admin,
+  password: System.get_env("ADMIN_PASSWORD") || "dev-password"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
