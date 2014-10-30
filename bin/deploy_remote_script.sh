@@ -34,7 +34,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 echo -e "\e[0;34mStarting new container on port $NEXT_PORT\e[0m"
-CONTAINER_ID=$($DOCKER run -d -p $NEXT_PORT:$CONTAINER_PORT -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DYNAMO_DB_PREFIX=$AWS_DYNAMO_DB_PREFIX -e DEPLOYMENT_KEY=$DEPLOYMENT_KEY $CONTAINER_IMAGE_WITH_TAG)
+CONTAINER_ID=$($DOCKER run -d -p $NEXT_PORT:$CONTAINER_PORT -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DYNAMO_DB_PREFIX=$AWS_DYNAMO_DB_PREFIX -e DEPLOYMENT_KEY=$DEPLOYMENT_KEY -e ADMIN_PASSWORD=$ADMIN_PASSWORD $CONTAINER_IMAGE_WITH_TAG)
 CONTAINER_ID=${CONTAINER_ID:0:12}
 
 echo -e "\e[0;34mChecking server health\e[0m"
@@ -42,6 +42,7 @@ sleep 1
 curl -Is localhost:$NEXT_PORT | grep -e "HTTP\/1\.1 [23]" > /dev/null
 if [ "$?" -ne "0" ]; then
   echo -e "\e[0;31mContainer $CONTAINER_ID did not start properly it seems. Does not reply well to the curl check. Aborting.\e[0m"
+  curl -I localhost:$NEXT_PORT
   $DOCKER kill $CONTAINER_ID
   exit 1
 fi
