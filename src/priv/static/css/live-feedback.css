@@ -39,6 +39,32 @@ footer .arrow {
   margin-right: 15px;
 }
 
+#conferences .panel-heading label.toggle {
+  float: right;
+  display: block;
+}
+
+#conferences .panel-heading label.toggle input {
+  margin-right: 10px;
+}
+
+#conferences .panel-body .emotion span {
+  display: inline-block;
+  width: 25%;
+}
+
+#conferences .panel-body .emotion .slider {
+  width: 75%;
+}
+
+#conferences .panel-body .emotion .slider .slider-track {
+  background-image: linear-gradient(to bottom,#A03737 0,#991616 100%);
+}
+
+#conferences .panel-body .emotion .slider .slider-track .slider-selection {
+  background-image: linear-gradient(to bottom,#2BE03B 0,#2E8C36 100%);
+}
+
 @media screen and (min-width: 768px) {
   .header {
     margin-bottom: 30px;

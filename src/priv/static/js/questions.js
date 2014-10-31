@@ -46,9 +46,9 @@ $(function() {
       value: parseInt(getDefaultEmotionValue("appreciation", conference, 5))
     }).on("slideStop", registerEmotion("appreciation", conference)).on('slideStart', function() { indicateLoading($(this)); });
 
-    $(this).find('input#lost-slider').slider({
-      value: parseInt(getDefaultEmotionValue("lost", conference, 5))
-    }).on("slideStop", registerEmotion("lost", conference)).on('slideStart', function() { indicateLoading($(this)); });
+    $(this).find('input#following-slider').slider({
+      value: parseInt(getDefaultEmotionValue("following", conference, 5))
+    }).on("slideStop", registerEmotion("following", conference)).on('slideStart', function() { indicateLoading($(this)); });
 
     $(this).find('textarea')
       .val(getDefaultEmotionValue(commentEmotionName, conference, ""))

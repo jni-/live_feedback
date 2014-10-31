@@ -1,7 +1,7 @@
 $(function() {
 
   function activateControls(activate) {
-    $('input#appreciation-slider, input#lost-slider').slider(activate ? "enable" : "disable");
+    $('input#appreciation-slider, input#following-slider').slider(activate ? "enable" : "disable");
   }
 
   function reloadPageIfVersionChanged(current_version) {
