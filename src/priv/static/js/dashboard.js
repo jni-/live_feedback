@@ -6,9 +6,10 @@ $(function() {
         for(var i in data) {
           var ranking = data[i];
           var area = $('#' + ranking.conference + ' .panel-body');
+          var averageRounded = ranking.average.toFixed(2);
           if(area.find('input.' + ranking.emotion).length === 0) {
-            area.append($('<div class="emotion"><span>' + ranking.emotion + ' (' + ranking.average +')</span><input class="' + ranking.emotion + '" /></div>'));
-            area.find('input.' + ranking.emotion).slider({value: ranking.average, enabled: false, step: 0.5, tooltip: 'hide'});
+            area.append($('<div class="emotion"><span>' + ranking.emotion + ' (' + averageRounded +')</span><input class="' + ranking.emotion + '" /></div>'));
+            area.find('input.' + ranking.emotion).slider({value: ranking.average, enabled: false, step: 0.5, tooltip: 'hide', handle: "triangle"});
           } else {
             area.find('input.' + ranking.emotion).slider("setValue", ranking.average);
           }
