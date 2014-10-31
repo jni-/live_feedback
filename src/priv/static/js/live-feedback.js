@@ -14,6 +14,7 @@ $(function() {
 
   var socket = new Phoenix.Socket("/ws");
   var socketWasDead = false;
+  var updating = false;
   socket.join("generic", "global", {}, function(channel) {
 
     if(socketWasDead) {
@@ -24,6 +25,7 @@ $(function() {
     }
 
     channel.on("reload", function(message) {
+      updating = true;
       activateControls(false);
       toastr.warning("The application is updating, please wait. This should only take a few seconds, your work has been saved.");
 
@@ -37,7 +39,7 @@ $(function() {
 
   socket.onClose(function() {
       activateControls(false);
-      if(!socketWasDead) {
+      if(!socketWasDead && !updating) {
         toastr.error("The server seems to be going through some rough times.", "Please be supportive in this moment of hardsip.", {timeOut: 0});
       }
       socketWasDead = true;

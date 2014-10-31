@@ -31,7 +31,7 @@ defmodule LiveFeedback.AdminController do
   def rankings(conn, _params) do
     {:ok, _, emotions} = Emotion.scan
 
-    rankings = Enum.filter(emotions, fn({Emotion, emotion}) -> emotion[:value] =~ ~r/[0-9]{1,2}/ end)
+    rankings = Enum.filter(emotions, fn({Emotion, emotion}) -> emotion[:value] && emotion[:value] =~ ~r/[0-9]{1,2}/ end)
                 |> Enum.group_by(fn({Emotion, emotion}) -> {emotion[:emotion], emotion[:conference_name]} end)
                 |> Enum.map(fn({key, values}) -> {key, List.foldr(values, 0, fn({Emotion, dict}, acc) -> acc + String.to_integer(dict[:value]) end) / Enum.count(values)} end)
                 |> Enum.map(fn({{emotion, conference}, average}) -> %{emotion: emotion, conference: conference, average: average} end)
