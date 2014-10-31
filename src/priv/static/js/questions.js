@@ -1,6 +1,7 @@
 $(function() {
 
   var commentEmotionName = "other";
+  var saveCommentTimeout;
 
   function registerEmotion(emotion, conference) {
     return function() {
@@ -18,6 +19,7 @@ $(function() {
 
   function saveComment(conference) {
     return function() {
+      saveCommentTimeout && clearTimeout(saveCommentTimeout);
       var $el = $(this);
       $.post("register-emotion", {value: $el.val(), emotion: commentEmotionName, conference: conference})
         .then(indicateValid($el));
@@ -28,6 +30,8 @@ $(function() {
     return function() {
       var $el = $(this);
       localStorage && localStorage.setItem(commentEmotionName + conference, $el.val());
+      saveCommentTimeout && clearTimeout(saveCommentTimeout);
+      saveCommentTimeout = setTimeout(saveComment(conference).bind($el), 1000);
     }
   }
 
@@ -52,7 +56,7 @@ $(function() {
 
     $(this).find('textarea')
       .val(getDefaultEmotionValue(commentEmotionName, conference, ""))
-      .on('focus', function() { indicateLoading($(this)); })
+      .on('keydown', function() { indicateLoading($(this)); })
       .on('keyup', saveCommentLocally(conference))
       .on('blur', saveComment(conference));
 
