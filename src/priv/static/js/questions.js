@@ -58,4 +58,18 @@ $(function() {
 
   });
 
+  var socket = new Phoenix.Socket("/ws");
+  socket.join("generic", "global", {}, function(channel) {
+
+    channel.on("conference-toggled", function(message) {
+      if(message.enabled) {
+        location.reload();
+      } else {
+        $("#" + message.slug).animate({height: 0}, function() { $(this).remove(); });
+      }
+
+    });
+
+  });
+
 });

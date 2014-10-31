@@ -14,7 +14,7 @@
       .panel-body
         .checkbox
           %label.toggle(for="enable-#{conference[:slug]}")
-            %input(type="checkbox", id="enable-#{conference[:slug]}", data-enabled="#{conference[:enabled]}")
+            %input(type="checkbox", id="enable-#{conference[:slug]}", data-enabled="#{conference[:enabled]}", data-conference-name="#{conference[:name]}", data-conference-slug="#{conference[:slug]}")
             Activer
 
           %hr

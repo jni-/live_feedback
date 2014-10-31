@@ -27,8 +27,11 @@ $(function() {
   // Hack, Calliope can't do conditions yet
   $('input[type=checkbox][data-enabled=1]').prop('checked', true);
   $('input[type=checkbox]').on('change', function() {
-    // TODO activate/deactivate
-    console.log("On doit activer? " + !!$(this).prop('checked'));
+    var $el = $(this);
+    var conference = $el.attr('data-conference-name');
+    var slug = $el.attr('data-conference-slug');
+    var enabled = $el.prop('checked') && "1" || "0";
+    $.post("/admin/disable-conference", {conference: conference, slug: slug, enabled: enabled});
   });
 
 

@@ -1,7 +1,7 @@
 defmodule LiveFeedback.AdminController do
   use Phoenix.Controller
 
-  plug :authenticate, :admin when action in [:dashboard]
+  plug :authenticate, :admin when action in [:dashboard, :rankings, :disable_conference]
   plug :action
 
   alias Poison, as: JSON
@@ -39,6 +39,16 @@ defmodule LiveFeedback.AdminController do
     json conn, JSON.encode!(rankings)
   end
 
+  def disable_conference(conn, params) do
+    enabled? = if params["enabled"] == "1", do: 1, else: 0
+    json conn, JSON.encode!(case Conference.new(name: params["conference"], enabled: enabled?, slug: params["slug"]).put! do
+      {:ok, _} ->
+        Phoenix.Channel.broadcast "generic", "global", "conference-toggled", %{slug: params["slug"], enabled: enabled?}
+        :ok
+      {:error, err} ->
+        %{error: Tuple.to_list(err)}
+    end)
+  end
 
   defp authenticate(conn, :admin) do
     if !get_session(conn, :is_admin) do

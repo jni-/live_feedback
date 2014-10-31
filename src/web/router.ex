@@ -20,6 +20,7 @@ defmodule LiveFeedback.Router do
     post "/login", LiveFeedback.AdminController, :login, as: :pages
     get "/dashboard", LiveFeedback.AdminController, :dashboard, as: :pages
     get "/rankings", LiveFeedback.AdminController, :rankings, as: :pages
+    post "/disable-conference", LiveFeedback.AdminController, :disable_conference, as: :pages
   end
 
 end
