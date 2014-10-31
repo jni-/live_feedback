@@ -1,20 +1,18 @@
 - for {Conference, conference} <- @conferences do
 
   %div.jumbotron.sliders(id="#{conference[:slug]}")
+    .state
     %h2
       = conference[:name]
 
     %h3 Appréciez-vous cette présentation?
-    %div
-      %span 0
       %input#appreciation-slider
-      %span 10
 
     %h3 Est-ce facile de suivre la présentation?
-    %div
-      %span 0
       %input#lost-slider
-      %span 10
+
+    %h3 Autres commentaires?
+      %textarea(rows="5")
 
 
 %script(src="/js/questions.js")

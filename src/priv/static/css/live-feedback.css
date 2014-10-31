@@ -17,8 +17,21 @@ body {
   padding-left: 40px;
 }
 
-.sliders span {
-  margin: 0 20px;
+.sliders .state {
+  float: right;
+  height: 32px;
+  width: 32px;
+  background: transparent url(../images/valid.png);
+}
+
+.sliders .state.loading {
+  background-image: url(../images/loading.gif);
+}
+
+.sliders textarea {
+  display: block;
+  width: 100%;
+  font-size: 14px;
 }
 
 @media screen and (min-width: 768px) {

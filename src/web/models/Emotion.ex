@@ -3,7 +3,7 @@ defmodule Emotion do
 
   defcolumn :hash, type: :string
   defcolumn :emotion, type: :string
-  defcolumn :value, type: :number
+  defcolumn :value, type: :string
   defcolumn :conference_name, type: :string
 
 end

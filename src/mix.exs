@@ -7,7 +7,6 @@ defmodule LiveFeedback.Mixfile do
      elixir: "~> 1.0",
      elixirc_paths: ["lib", "web"],
      compilers: [:phoenix] ++ Mix.compilers,
-     test_coverage: [tool: Coverex.Task, log: :warn],
      deps: deps]
   end
 
@@ -29,7 +28,6 @@ defmodule LiveFeedback.Mixfile do
      {:ddbmodel, github: "jni-/ddbmodel"},
      {:jsx, github: "talentdeficit/jsx", override: true},
      {:meck, "0.8.2", override: true},
-     {:mock, github: "jjh42/mock", only: :test},
-     {:coverex, ">= 0.0.0", only: :test}]
+     {:mock, github: "jjh42/mock", only: :test}]
   end
 end
