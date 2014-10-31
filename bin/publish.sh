@@ -58,7 +58,19 @@ then
     exit 1
 fi
 
+git tag | grep "^$TAG$" > /dev/null
+if [ "$?" -eq "0" ]; then
+  read -p "Tag $TAG already exists. Overwrite? (y/N) " -n 1 -r
+  echo ""
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+  fi
+  git tag -d $TAG
+  git push origin :refs/tags/$TAG
+fi
+
 docker build -t jnijni/live-feedback:$TAG --no-cache "$DIR/.."
 docker push jnijni/live-feedback:$TAG
-git tag -f $TAG
+
+git tag $TAG
 git push origin $TAG
