@@ -27,9 +27,6 @@ $(function() {
   function saveCommentLocally(conference) {
     return function() {
       var $el = $(this);
-      console.log(commentEmotionName);
-      console.log(conference);
-      console.log($el);
       localStorage && localStorage.setItem(commentEmotionName + conference, $el.val());
     }
   }
