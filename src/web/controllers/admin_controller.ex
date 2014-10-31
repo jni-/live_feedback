@@ -21,7 +21,7 @@ defmodule LiveFeedback.AdminController do
     end
   end
 
-  def dashboard(conn, params) do
+  def dashboard(conn, _params) do
     {:ok, _, conferences} = Conference.scan
 
     render conn, "dashboard",
@@ -29,7 +29,6 @@ defmodule LiveFeedback.AdminController do
   end
 
   def rankings(conn, _params) do
-    {:ok, _, conferences} = Conference.scan
     {:ok, _, emotions} = Emotion.scan
 
     rankings = Enum.filter(emotions, fn({Emotion, emotion}) -> emotion[:value] =~ ~r/[0-9]{1,2}/ end)

@@ -16,7 +16,7 @@ defmodule LiveFeedback.PageController do
   def register_emotion(conn, params) do
     user_id = get_session(conn, :user_id)
     case Emotion.new(hash: user_id <> params["emotion"] <> params["conference"], emotion: params["emotion"], value: params["value"], conference_name: params["conference"]).put! do
-      {:ok, emotion} ->
+      {:ok, _} ->
         Phoenix.Channel.broadcast "generic", "global", "emotions-changed", %{}
         json conn, JSON.encode!(:ok)
       {:error, err} ->
