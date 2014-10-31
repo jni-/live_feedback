@@ -74,3 +74,5 @@ docker push jnijni/live-feedback:$TAG
 
 git tag $TAG
 git push origin $TAG
+
+notify-send -u normal "Your publish is done!"
