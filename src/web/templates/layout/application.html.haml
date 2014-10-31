@@ -22,14 +22,28 @@
   %body
 
     .container
-      .header
+      %header.header
         %h1 Live Feedback
 
       = @inner
 
-      .footer
+      %footer
         %p.version
           You are running version&nbsp;
           %em= version_id
+
+        %hr
+
+        %blockquote#promo.container
+          .row
+            .col-sm-4.col-xs-12
+              %a.logo-elapse(href="http://elapsetech.com", target="_blank")
+                %img(src="/images/logo-elapse.png",width="150px")
+            .col-sm-4.col-xs-12
+              %span.visible-xs.arrow &raquo;
+              %a.blog(href="http://developpementagile.com", target="_blank") Blogue de développement agile
+            .col-sm-4.col-xs-12
+              %span.visible-xs.arrow &raquo;
+              %a.twitter(href="http://twitter.com/elapsetech", target="_blank") @elapsetech
 
     %script(src="/js/live-feedback.js")
