@@ -38,7 +38,7 @@ CONTAINER_ID=$($DOCKER run -d -p $NEXT_PORT:$CONTAINER_PORT -e AWS_ACCESS_KEY_ID
 CONTAINER_ID=${CONTAINER_ID:0:12}
 
 echo -e "\e[0;34mChecking server health\e[0m"
-sleep 1
+sleep 2
 curl -Is localhost:$NEXT_PORT | grep -e "HTTP\/1\.1 [23]" > /dev/null
 if [ "$?" -ne "0" ]; then
   echo -e "\e[0;31mContainer $CONTAINER_ID did not start properly it seems. Does not reply well to the curl check. Aborting.\e[0m"
