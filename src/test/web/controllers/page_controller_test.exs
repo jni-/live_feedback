@@ -16,15 +16,7 @@ defmodule LiveFeedback.PageControllerTest do
   test "Index renders the view" do
     with_mock Conference, [scan: fn() -> {:ok, 1, []} end] do
       %{resp_body: body} = call(LiveFeedback.Router, :get, "/")
-      assert body =~ "You are running version"
-    end
-  end
-
-  test "Index lists enabled conferences" do
-    with_mock Conference, [scan: fn() -> {:ok, 1, [enabled_conference, disabled_conference]} end] do
-      %{resp_body: body} = call(LiveFeedback.Router, :get, "/")
-      assert body =~ "Enabled-conference"
-      refute body =~ "Disabled-conference"
+      assert body =~ "Vous êtes sur la version"
     end
   end
 
