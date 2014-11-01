@@ -47,11 +47,13 @@ $(function() {
     var conference = $(this).attr('id');
 
     $(this).find('input#appreciation-slider').slider({
-      value: parseInt(getDefaultEmotionValue("appreciation", conference, 5))
+      value: parseInt(getDefaultEmotionValue("appreciation", conference, 5)),
+      tooltip: "hide"
     }).on("slideStop", registerEmotion("appreciation", conference)).on('slideStart', function() { indicateLoading($(this)); });
 
     $(this).find('input#following-slider').slider({
-      value: parseInt(getDefaultEmotionValue("following", conference, 5))
+      value: parseInt(getDefaultEmotionValue("following", conference, 5)),
+      tooltip: "hide"
     }).on("slideStop", registerEmotion("following", conference)).on('slideStart', function() { indicateLoading($(this)); });
 
     $(this).find('textarea')
