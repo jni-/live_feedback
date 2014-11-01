@@ -1,8 +1,5 @@
 $(function() {
 
-  var commentEmotionName = "other";
-  var saveCommentTimeout;
-
   function registerEmotion(emotion, conference) {
     return function() {
       $el = $(this);
@@ -15,24 +12,6 @@ $(function() {
 
   function getDefaultEmotionValue(emotion, conference, defaultValue) {
     return localStorage && localStorage.getItem(emotion + conference) || defaultValue;
-  }
-
-  function saveComment(conference) {
-    return function() {
-      saveCommentTimeout && clearTimeout(saveCommentTimeout);
-      var $el = $(this);
-      $.post("register-emotion", {value: $el.val(), emotion: commentEmotionName, conference: conference})
-        .then(indicateValid($el));
-    };
-  }
-
-  function saveCommentLocally(conference) {
-    return function() {
-      var $el = $(this);
-      localStorage && localStorage.setItem(commentEmotionName + conference, $el.val());
-      saveCommentTimeout && clearTimeout(saveCommentTimeout);
-      saveCommentTimeout = setTimeout(saveComment(conference).bind($el), 1000);
-    }
   }
 
   function indicateLoading($el) {
@@ -55,12 +34,6 @@ $(function() {
       value: parseInt(getDefaultEmotionValue("following", conference, 5)),
       tooltip: "hide"
     }).on("slideStop", registerEmotion("following", conference)).on('slideStart', function() { indicateLoading($(this)); });
-
-    $(this).find('textarea')
-      .val(getDefaultEmotionValue(commentEmotionName, conference, ""))
-      .on('keydown', function() { indicateLoading($(this)); })
-      .on('keyup', saveCommentLocally(conference))
-      .on('blur', saveComment(conference));
 
   });
 
