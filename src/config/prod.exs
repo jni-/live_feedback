@@ -14,7 +14,7 @@ use Mix.Config
 config :phoenix, LiveFeedback.Router,
   url: [host: "example.com"],
   http: [port: System.get_env("PORT")],
-  secret_key_base: "N4dz9FBjLlWmGaL6jl+Yw0wO9BgZh9OhWJgTcAAb1J+RfjZ+ilUOXyFD9LuMz3SXF/fttAYkfgcnZ0peayst1Q=="
+  secret_key_base: System.get_env("SESSION_SECRET") || "N4dz9FBjLlWmGaL6jl+Yw0wO9BgZh9OhWJgTcAAb1J+RfjZ+ilUOXyFD9LuMz3SXF/fttAYkfgcnZ0peayst1Q=="
 
 config :logger, :console,
   level: :info
