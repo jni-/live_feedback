@@ -2,6 +2,7 @@ $(function() {
 
   function activateControls(activate) {
     $('input#appreciation-slider, input#following-slider').slider(activate ? "enable" : "disable");
+    $('textarea').prop('disabled', !activate);
   }
 
   function reloadPageIfVersionChanged(current_version) {
