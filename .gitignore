@@ -5,3 +5,4 @@ erl_crash.dump
 /src/_test
 /src/Dockerfile
 /src/cover
+*.swp
