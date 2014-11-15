@@ -32,7 +32,7 @@ $(function() {
 
       setInterval(function() {
         reloadPageIfVersionChanged(message.current_Version);
-      }, 100);
+      }, 1000);
 
     });
 
