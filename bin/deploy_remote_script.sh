@@ -38,7 +38,7 @@ CONTAINER_ID=$($DOCKER run -d -p $NEXT_PORT:$CONTAINER_PORT -e AWS_ACCESS_KEY_ID
 CONTAINER_ID=${CONTAINER_ID:0:12}
 
 echo -e "\e[0;34mChecking server health\e[0m"
-sleep 2
+sleep 1
 curl -Is localhost:$NEXT_PORT | grep -e "HTTP\/1\.1 [23]" > /dev/null
 if [ "$?" -ne "0" ]; then
   echo -e "\e[0;31mContainer $CONTAINER_ID did not start properly it seems. Does not reply well to the curl check. Aborting.\e[0m"
@@ -51,11 +51,11 @@ echo -e "\e[0;34mUpdating configuration to use container $CONTAINER_ID on port $
 $SED -i /"server\s*${SERVER_PREFIX}"/d $HAPROXY_CONF
 $SED -i s/"$NEW_SERVER_SEARCH_STRING"/"    server ${SERVER_PREFIX}_${CONTAINER_ID} 127.0.0.1:$NEXT_PORT check\n$NEW_SERVER_SEARCH_STRING"/ $HAPROXY_CONF
 
-echo -e "\e[0;34mSending current server a reload notice with key $DEPLOYMENT_KEY.\e[0m"
+echo -e "\e[0;34mSending current server a reload notice with key <hidden>.\e[0m"
 curl -Is localhost/signal-reload?key=$DEPLOYMENT_KEY > /dev/null
 $IPTABLES -I INPUT -p tcp --dport 80 --syn -j DROP
 
-sleep 2
+#sleep 1
 
 $SERVICE haproxy restart
 $IPTABLES -D INPUT -p tcp --dport 80 --syn -j DROP
